@@ -1,6 +1,6 @@
 """Decompose fitted regional seasonal balance changes for Figure 9.
 
-Run with the ML4GM environment. Existing products/models are never overwritten.
+Run with the ml-wgms-mb Conda environment. Existing products/models are never overwritten.
 Season-window ensemble members are reconstructed from stored window labels;
 their predictions must reproduce the published product before attribution.
 """
@@ -180,6 +180,6 @@ def run(root):
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--root', type=Path, default=Path(environ.get('ML4GM_ROOT', DEFAULT_ROOT)),
+    parser.add_argument('--root', type=Path, default=Path(environ.get('WGMS_MB_ROOT', DEFAULT_ROOT)),
                         help='Directory containing the inputs and generated products.')
     run(parser.parse_args().root.expanduser().resolve())

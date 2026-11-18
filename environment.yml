@@ -1,4 +1,4 @@
-name: ml4gm-tc
+name: ml-wgms-mb
 channels:
   - conda-forge
 dependencies:

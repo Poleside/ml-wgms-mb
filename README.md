@@ -1,4 +1,4 @@
-# ML4GM glacier mass-balance reconstruction
+# WGMS Glacier Mass-Balance Reconstruction
 
 Reproduction code for manuscript v0.3.30, *Reconstructing annual and seasonal glacier mass balance across the global observational network, 1979–2025*. The workflow combines WGMS observations, Randolph Glacier Inventory 6.0 attributes, and ERA5-Land forcing to reconstruct annual, winter, and summer glacier-wide mass balance for the WGMS-linked glacier network.
 
@@ -6,7 +6,7 @@ Reproduction code for manuscript v0.3.30, *Reconstructing annual and seasonal gl
 
 ```sh
 conda env create -f environment.yml
-conda activate ml4gm-tc
+conda activate ml-wgms-mb
 ```
 
 Run the commands below from the repository root.
@@ -22,7 +22,7 @@ Run the commands below from the repository root.
 
 ## Run the analysis
 
-Open the notebooks in `code/` in Jupyter or VS Code with the `ml4gm-tc` Python environment as the kernel. Run each from top to bottom, starting with `01_Dataset.ipynb`. To run a notebook from a terminal, pass its path to IPython's `%run`, for example:
+Open the notebooks in `code/` in Jupyter or VS Code with the `ml-wgms-mb` Python environment as the kernel. Run each from top to bottom, starting with `01_Dataset.ipynb`. To run a notebook from a terminal, pass its path to IPython's `%run`, for example:
 
 ```sh
 python -m IPython --HistoryManager.enabled=False -c "%run code/01_Dataset.ipynb"
@@ -48,9 +48,9 @@ Once step 01 completes, run notebooks 02, 03, 04, 05, 06, 08, and 09 in that ord
 
 The initial model training includes hyperparameter search and cross-validation and can take substantially longer than the other steps.
 
-Set the environment variable `ML4GM_FORCE_PARAM_SEARCH` to `1` before running step 03 after any change to the training records or predictors. This recomputes hyperparameter selection for all three targets even when parameter files already exist.
+Set the environment variable `WGMS_MB_FORCE_PARAM_SEARCH` to `1` before running step 03 after any change to the training records or predictors. This recomputes hyperparameter selection for all three targets even when parameter files already exist.
 
-The notebooks write intermediates under `data/`, `models/`, and `results/`. To keep inputs and results outside the package, set `ML4GM_ROOT` to an existing directory before starting the notebook kernel or IPython. Pass the same directory to the regional analysis and figure scripts with `--root`. The annual product covers 317 glaciers. Annual summaries use the same 316 glaciers in every year after excluding the single glacier from RGI region 19. The seasonal samples and the 197-glacier analysis in Fig. 9 have their own coverage criteria.
+The notebooks write intermediates under `data/`, `models/`, and `results/`. To keep inputs and results outside the package, set `WGMS_MB_ROOT` to an existing directory before starting the notebook kernel or IPython. Pass the same directory to the regional analysis and figure scripts with `--root`. The annual product covers 317 glaciers. Annual summaries use the same 316 glaciers in every year after excluding the single glacier from RGI region 19. The seasonal samples and the 197-glacier analysis in Fig. 9 have their own coverage criteria.
 
 ## Generate manuscript figures
 
@@ -66,4 +66,4 @@ For v0.3.30, the annual, winter and summer training sets contain 5,465, 2,519 an
 
 ## Citation
 
-Cite *ML4GM Glacier Mass-Balance Reconstruction*, version 0.1.0, using [CITATION.cff](CITATION.cff). The code is released under the [MIT License](LICENSE). Third-party inputs retain their providers' licences and should be cited separately.
+Cite *WGMS Glacier Mass-Balance Reconstruction*, version 0.1.1, using [CITATION.cff](CITATION.cff). The code is released under the [MIT License](LICENSE). Third-party inputs retain their providers' licences and should be cited separately.

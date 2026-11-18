@@ -12,7 +12,7 @@
 // 5. Start the table export task from the Tasks panel.
 
 var POINT_ASSET = 'projects/YOUR_PROJECT/assets/wgms_global_glacier_points_for_gee';
-var DRIVE_FOLDER = 'ML4GM_ERA5LAND';  // Download into data/raw/era5land_gee/exports/.
+var DRIVE_FOLDER = 'WGMS_MB_ERA5LAND';  // Download into data/raw/era5land_gee/exports/.
 var YEAR_MIN = 1979;
 var YEAR_MAX = 2025;
 var REGION_FILTER = null;  // e.g. [13, 14, 15] or null
