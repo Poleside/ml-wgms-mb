@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "Please cite the archived version of this software and the accompanying article."
+type: software
+title: "ML4GM Glacier Mass-Balance Reconstruction"
+authors:
+  - family-names: Wang
+    given-names: Qihua
+version: "0.1.0"
+license: MIT
+abstract: "Analysis and figure code accompanying manuscript v0.3.30 on annual, winter and summer glacier-wide mass-balance reconstruction for the WGMS-linked glacier network, 1979–2025."

@@ -1,0 +1,10 @@
+{
+  "name": "ml4gm-tc-figures",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}
