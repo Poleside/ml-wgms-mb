@@ -5,6 +5,10 @@ title: "ML4GM Glacier Mass-Balance Reconstruction"
 authors:
   - family-names: Wang
     given-names: Qihua
+    affiliation: >-
+      Chinese Antarctic Center of Surveying and Mapping, Wuhan University, Wuhan 430079, China;
+      Key Laboratory of Polar Environment Monitoring and Public Governance (Wuhan University), Ministry of Education, Wuhan 430079, China;
+      School of Geodesy and Geomatics, Wuhan University, Wuhan 430079, China
 repository-code: "https://github.com/Poleside/ml-wgms-mb"
 version: "0.1.0"
 license: MIT
