@@ -1,14 +1,15 @@
-"""Plot the glacier inventory and the annual observation network."""
+"""fig02: Glacier inventory and annual observation coverage."""
 
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 from matplotlib.colors import Normalize
 from matplotlib.ticker import FixedLocator
+import numpy as np
+import pandas as pd
 
-from common import configure_cartopy, observation_support, observation_tables, save_figure
+from common import (configure_cartopy, figure_args, observation_support, observation_tables,
+                    save_figure, set_plot_style)
 
 
 def draw_coverage(root: Path, output: Path) -> None:
@@ -90,4 +91,10 @@ def draw_coverage(root: Path, output: Path) -> None:
                              orientation="horizontal", ticks=[0, maximum])
         scale.set_label("Annual observation years per glacier", fontsize=5, labelpad=-1)
         scale.ax.tick_params(labelsize=5, direction="in", width=.45, length=2.2, pad=1.8)
-        save_figure(fig, output, "figure02")
+        save_figure(fig, output, "figure02", min_render_dpi=600)
+
+
+if __name__ == "__main__":
+    root, output, dpi = figure_args(__doc__)
+    set_plot_style(dpi=dpi)
+    draw_coverage(root, output)

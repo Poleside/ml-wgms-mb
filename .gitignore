@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+/data/
+/models/
+/results/
+/figures/exports/
+/figures/cartopy_data/
+/.cache/
+/node_modules/

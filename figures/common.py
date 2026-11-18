@@ -1,16 +1,25 @@
 """Shared plotting defaults and source paths for the manuscript figures."""
 
+import argparse
+from io import BytesIO
 from pathlib import Path
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
+from PIL import Image
 
 
 TARGETS = ("annual", "winter", "summer")
 COLORS = {
     "annual": "#286FB4", "observed": "#8C8C8C", "winter": "#2A9D7E",
     "summer": "#E16A00", "early": "#77AADD", "late": "#CC6677",
+}
+GROUP_COLORS = {
+    "Snow / precipitation": "#3A94BF",
+    "Temperature / melt": "#E66B00",
+    "Radiation / flux / pressure": "#8278B8",
+    "Topography / geometry": "#969696",
 }
 REGION_NAMES = dict(enumerate((
     "Alaska", "Western Canada and USA", "Arctic Canada North", "Arctic Canada South",
@@ -20,7 +29,23 @@ REGION_NAMES = dict(enumerate((
 ), start=1))
 
 
-def set_plot_style(dpi: int = 400) -> None:
+def figure_args(description: str) -> tuple[Path, Path, int]:
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1],
+                        help="Project directory containing data, models and results.")
+    parser.add_argument("--output-dir", type=Path, help="Output directory. Default: ROOT/figures/exports.")
+    parser.add_argument("--dpi", type=int, default=300, help="PNG output DPI (default: 300). Figure 1 is fixed at 300.")
+    args = parser.parse_args()
+    if args.dpi <= 0:
+        parser.error("--dpi must be positive.")
+    root = args.root.resolve()
+    output = args.output_dir.resolve() if args.output_dir else root / "figures/exports"
+    output.mkdir(parents=True, exist_ok=True)
+    plt.switch_backend("Agg")
+    return root, output, args.dpi
+
+
+def set_plot_style(dpi: int = 300) -> None:
     mpl.rcParams.update({
         "font.family": "sans-serif", "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
         "savefig.dpi": dpi, "svg.fonttype": "none", "pdf.fonttype": 42, "font.size": 7.2, "axes.labelsize": 7.4,
@@ -31,9 +56,19 @@ def set_plot_style(dpi: int = 400) -> None:
     })
 
 
-def save_figure(fig, output: Path, stem: str) -> None:
-    fig.savefig(output / f"{stem}.png", bbox_inches="tight")
-    fig.savefig(output / f"{stem}.pdf", bbox_inches="tight")
+def save_figure(fig, output: Path, stem: str, *, min_render_dpi: int = 0) -> None:
+    configured_dpi = mpl.rcParams["savefig.dpi"]
+    png_dpi = fig.dpi if configured_dpi == "figure" else configured_dpi
+    render_dpi = max(png_dpi, min_render_dpi)
+    png_path = output / f"{stem}.png"
+    if render_dpi > png_dpi:
+        with BytesIO() as raster:
+            fig.savefig(raster, format="png", dpi=render_dpi, bbox_inches="tight")
+            with Image.open(raster) as image:
+                image.convert("RGB").save(png_path, dpi=(png_dpi, png_dpi))
+    else:
+        fig.savefig(png_path, dpi=png_dpi, bbox_inches="tight")
+    fig.savefig(output / f"{stem}.pdf", dpi=render_dpi, bbox_inches="tight")
     plt.close(fig)
 
 
